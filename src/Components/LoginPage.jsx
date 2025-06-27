@@ -67,8 +67,8 @@ function LoginPage() {
                 value={passVal}
               />
               <div id="createAcc">
-                <h5>Don’t have an account?</h5>
-                <h5 id="makeacc">Create account</h5>
+                <h5>Can't remeber your password?</h5>
+                <h5 id="makeacc">Forgot Password</h5>
               </div>
 
               <button
