@@ -9,10 +9,15 @@ function LoginPage() {
   const [mailValue, setMailValue] = useState("");
   const [passVal, setPassVal] = useState("");
 
-  const [userArr, setUserArr] = useState([]);
+  const [userArr, setUserArr] = useState(() => {
+    const savedUsers = localStorage.getItem("userArr");
+    return savedUsers ? JSON.parse(savedUsers) : [];
+  });
 
+  // useEffect(() => {
+  //   localStorage.setItem("userArr", JSON.stringify(userArr));
+  // }, []);
 
-  
   const handleLogin = () => {
     const user = userArr.find(
       (u) =>
@@ -41,7 +46,7 @@ function LoginPage() {
             <h1>Sign in</h1>
             <p>
               Don’t have an account?{" "}
-              <Vaul setUserArr={setUserArr} />
+              <Vaul setUserArr={setUserArr} userArr={userArr} />
             </p>
           </div>
 
@@ -71,7 +76,6 @@ function LoginPage() {
                   e.preventDefault();
                   handleLogin();
                   // console.log(userArr);
-                  
                 }}
               >
                 Sign in

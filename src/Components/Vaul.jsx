@@ -1,9 +1,9 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Drawer } from "vaul";
 import "./VaulDrawer.scss";
 
-export default function Vaul({ setUserArr }) {
+export default function Vaul({ setUserArr, userArr }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -21,6 +21,10 @@ export default function Vaul({ setUserArr }) {
     setUsername("");
     setPassword("");
   };
+
+  useEffect(() => {
+    localStorage.setItem("userArr", JSON.stringify(userArr));
+  }, [userArr]);
 
   return (
     <Drawer.Root>
@@ -77,7 +81,10 @@ export default function Vaul({ setUserArr }) {
               </label>
 
               <Drawer.Close asChild>
-                <button type="submit" className="signup-button">
+                <button
+                  type="submit"
+                  className="signup-button"
+                >
                   Sign up
                 </button>
               </Drawer.Close>
