@@ -1,13 +1,13 @@
-'use client';
-import { useState } from 'react';
-import { Drawer } from 'vaul';
-import './VaulDrawer.scss';
+"use client";
+import { useState } from "react";
+import { Drawer } from "vaul";
+import "./VaulDrawer.scss";
 
 export default function Vaul({ setUserArr }) {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,10 +16,10 @@ export default function Vaul({ setUserArr }) {
     setUserArr((prev) => [...prev, newUser]);
 
     // Reset
-    setName('');
-    setEmail('');
-    setUsername('');
-    setPassword('');
+    setName("");
+    setEmail("");
+    setUsername("");
+    setPassword("");
   };
 
   return (
@@ -30,7 +30,9 @@ export default function Vaul({ setUserArr }) {
         <Drawer.Content className="drawer-content">
           <div className="drawer-inner">
             <div aria-hidden className="drawer-bar" />
-            <Drawer.Title className="drawer-title">Create your account</Drawer.Title>
+            <Drawer.Title className="drawer-title">
+              Create your account
+            </Drawer.Title>
 
             <form className="signup-form" onSubmit={handleSubmit}>
               <label className="signup-label">
@@ -74,7 +76,11 @@ export default function Vaul({ setUserArr }) {
                 />
               </label>
 
-              <button type="submit" className="signup-button">Sign up</button>
+              <Drawer.Close asChild>
+                <button type="submit" className="signup-button">
+                  Sign up
+                </button>
+              </Drawer.Close>
             </form>
           </div>
         </Drawer.Content>

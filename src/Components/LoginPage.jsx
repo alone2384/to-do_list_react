@@ -9,7 +9,6 @@ function LoginPage() {
   const [mailValue, setMailValue] = useState("");
   const [passVal, setPassVal] = useState("");
 
-  // 🔁 Store all user info in one array
   const [userArr, setUserArr] = useState([]);
 
 
@@ -71,6 +70,8 @@ function LoginPage() {
                 onClick={(e) => {
                   e.preventDefault();
                   handleLogin();
+                  // console.log(userArr);
+                  
                 }}
               >
                 Sign in
