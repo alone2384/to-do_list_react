@@ -1,5 +1,6 @@
 import React from "react";
 import LoginPage from "./Components/LoginPage";
+import Vaul from './Components/Vaul'
 
 
 const App = () => {
@@ -7,7 +8,9 @@ const App = () => {
   return (
     <>
 
-    <LoginPage/>    
+    <LoginPage/>
+    {/* <Vaul/> */}
+
     </>
   );
 };

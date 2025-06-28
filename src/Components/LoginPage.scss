@@ -18,127 +18,136 @@ main {
   height: 100vh;
   width: 100%;
 
-  #left {
-    flex: 1;
-    padding: 5rem 8rem;
-    background-color: #ffffff;
+}
+
+#left {
+  flex: 1;
+  padding: 5rem 8rem;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+
+  #top {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: 2rem;
+    gap: 0.8rem;
 
-    #top {
+    h2 {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgb(255, 94, 0);
+      font-size: 3.5rem;
+      font-weight: bold;
+      margin-bottom: 5vw;
+
+      span {
+        font-size: 2rem;
+
+      }
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 600;
+    }
+
+    p {
+      font-size: 1rem;
+      color: #555;
+      display: flex;
+      justify-content: start;
+      align-items: end;
+
+      span {
+        color: rgb(208, 87, 26);
+        font-weight: 500;
+        cursor: pointer;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  #input {
+    form {
       display: flex;
       flex-direction: column;
-      gap: 0.8rem;
+      gap: 1.2rem;
 
-      h2 {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        color: rgb(255, 94, 0);
-        font-size: 3.5rem;
-        font-weight: bold;
-        margin-bottom: 5vw;
+      h5 {
+        font-size: 0.95rem;
+        font-weight: 500;
+      }
 
-        span {
-          font-size: 2rem;
+      input {
+        outline: none;
+        padding: 0.8rem 1rem;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+        transition: 0.3s;
 
+        &:focus {
+          outline: none;
+          border-color: orangered;
         }
       }
 
-      h1 {
-        font-size: 2.5rem;
-        font-weight: 600;
-      }
+      #createAcc {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 
-      p {
-        font-size: 1rem;
-        color: #555;
+        h5 {
+          font-size: 0.9rem;
+          color: #666;
+        }
 
-        span {
+        #makeacc {
+          cursor: pointer;
           color: rgb(208, 87, 26);
           font-weight: 500;
-          cursor: pointer;
 
           &:hover {
             text-decoration: underline;
           }
         }
       }
-    }
 
-    #input {
-      form {
-        display: flex;
-        flex-direction: column;
-        gap: 1.2rem;
+      button {
+        padding: 0.9rem;
+        background-color: rgb(255, 94, 0);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
 
-        h5 {
-          font-size: 0.95rem;
-          font-weight: 500;
-        }
-
-        input {
-          outline: none;
-          padding: 0.8rem 1rem;
-          border-radius: 8px;
-          border: 1px solid #ccc;
-          font-size: 1rem;
-          transition: 0.3s;
-
-          &:focus {
-            outline: none;
-            border-color: orangered;
-          }
-        }
-
-        #createAcc {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-
-          h5 {
-            font-size: 0.9rem;
-            color: #666;
-          }
-
-          #makeacc {
-            cursor: pointer;
-            color: rgb(208, 87, 26);
-            font-weight: 500;
-
-            &:hover {
-              text-decoration: underline;
-            }
-          }
-        }
-
-        button {
-          padding: 0.9rem;
-          background-color: rgb(255, 94, 0);
-          color: white;
-          border: none;
-          border-radius: 8px;
-          font-size: 1rem;
-          font-weight: 600;
-          cursor: pointer;
-          transition: 0.3s;
-
-          &:hover {
-            background-color: #ff5600;
-          }
+        &:hover {
+          background-color: #ff5600;
         }
       }
     }
   }
+}
 
-  #right {
-    flex: 0.7;
-    background-image: url('./assesss/89d5cb18dea1865421891e2166a064c9.jpg');
-    background-position: center;
-    background-size: cover;
-  }
+#right {
+  flex: 0.7;
+  background-image: url('./assesss/89d5cb18dea1865421891e2166a064c9.jpg');
+  background-position: center;
+  background-size: cover;
+}
+
+#signUp {
+  height: 100vh;
+  
 }
 
 @media (max-width: 768px) {
