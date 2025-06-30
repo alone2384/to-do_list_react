@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./LoginPage.scss";
-import Vaul from "./Vaul";
+import Vaul from "./signup";
 import { LuListTodo } from "react-icons/lu";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

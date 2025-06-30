@@ -1,16 +1,15 @@
 import React from "react";
-import LoginPage from "./Components/LoginPage";
-import Vaul from './Components/Vaul'
-
+import LoginPage from "./Components/loginNsignup/LoginPage";
+import Homepage from "./Homepage";
+import Structure from "./Components/Structure/Structure";
 
 const App = () => {
-  
   return (
     <>
-
-    <LoginPage/>
-    {/* <Vaul/> */}
-
+      {/* <LoginPage /> */}
+      {/* <Homepage/> */}
+      <Structure/>
+      
     </>
   );
 };

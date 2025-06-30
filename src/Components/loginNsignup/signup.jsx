@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Drawer } from "vaul";
-import "./VaulDrawer.scss";
+import "./signup.scss";
 
 export default function Vaul({ setUserArr, userArr }) {
   const [name, setName] = useState("");
