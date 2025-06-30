@@ -20,7 +20,7 @@ html, body {
   width: 17%;
   border: 0.5px solid rgba(93, 92, 92, 0.525);
   background: white; 
-  transition: all 3s ease;
+  transition: all 1s ease;
   z-index: 2;
 }
 #structureleft:active{
@@ -48,7 +48,7 @@ html, body {
   }
 
   #structureleft {
-    width: 40%; 
+    width: 63%; 
     position: absolute;
     left: 0;
     top: 0;
