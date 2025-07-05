@@ -4,7 +4,8 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   width: 100%;
 }
@@ -18,19 +19,18 @@ html, body {
 #structureleft {
   height: 100%;
   width: 17%;
-  border: 0.5px solid rgba(93, 92, 92, 0.525);
-  background: white; 
+  background: white;
   transition: all 1s ease;
   z-index: 2;
+  overflow: hidden;
 }
-#structureleft:active{
-  width: 0;
-}
+
 
 #structuremid {
   height: 100%;
   width: 60%;
-  border: 0.5px solid rgba(93, 92, 92, 0.525);
+  border-left: 0.5px solid rgba(93, 92, 92, 0.525);
+  border-right: 0.5px solid rgba(93, 92, 92, 0.525);
   transition: all 0.3s ease;
   z-index: 1;
 }
@@ -38,7 +38,6 @@ html, body {
 #structureright {
   height: 100%;
   width: 30%;
-  border: 0.5px solid rgba(93, 92, 92, 0.525);
   transition: all 0.3s ease;
 }
 
@@ -48,15 +47,25 @@ html, body {
   }
 
   #structureleft {
-    width: 63%; 
+    // display: none; //nav bar (side bar)
+    width: 63%;
     position: absolute;
     left: 0;
     top: 0;
-    z-index: 10; 
+    z-index: 10;
     box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
   }
 
   #structuremid {
     width: 100%;
   }
+
+
+  //navbar moving
+  #structureleft:active {
+    width: 0;
+  }
+
+
+
 }

@@ -130,10 +130,13 @@ main {
         cursor: pointer;
         transition: 0.3s;
 
-        &:hover {
-          background-color: #ff5600;
+        &:active {
+          background-color: #ff5500;
+          scale: 0.98;
         }
       }
+
+     
     }
   }
 }
