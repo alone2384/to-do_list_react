@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import styles from "./Structure.module.scss";
 import { HiOutlineMenu } from "react-icons/hi";
 
+import Sidebar from "./Sidebar/Sidebar";
+
 const Structure = () => {
   const [toggling, setToggling] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
@@ -36,7 +38,7 @@ const Structure = () => {
   return (
     <div className={styles.mainarea}>
       <div className={styles.structureLeft} style={Leftstyle}>
-        Left
+        <Sidebar />
         <button
           className={styles.menuBtn}
           style={menuBtnStyle}
