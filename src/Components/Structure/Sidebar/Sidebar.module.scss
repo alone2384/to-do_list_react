@@ -1,98 +1,120 @@
 .sidebar {
-  width: 250px;
-  height: 100vh;
-  background-color: #f8f8f8;
-  padding: 20px;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  position: relative;
+  width: 250px; /* Fixed width */
+  height: 100vh; /* Full screen height */
+  background-color: #ffffff;
+  padding: 16px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  overflow: hidden; /* Prevents overflow on small screens */
 }
 
-h2 {
-  margin-bottom: 20px;
+.heading {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 16px;
 }
 
 .search {
-  padding: 8px;
   width: 100%;
+  padding: 8px;
+  margin-bottom: 24px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  margin-bottom: 20px;
+  font-size: 14px;
 }
 
 .section {
-  margin-bottom: 20px;
+  width: 100%;
+  margin-bottom: 16px;
+}
 
-  h4 {
-    font-size: 13px;
-    color: gray;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
+.sectionTitle {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
 }
 
 .menuItem {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 5px 0;
+  width: 100%;
+  padding: 8px 0;
+  border-radius: 5px;
   cursor: pointer;
-
-  &:hover {
-    background-color: #e0e0e0;
-    border-radius: 5px;
-    padding-left: 5px;
-  }
+  transition: background-color 0.2s ease;
+  font-size: 14px;
 }
 
-.bold {
-  font-weight: bold;
+.menuItem:hover {
+  background-color: #f0f0f0;
 }
 
-.lists {
-  .left {
-    display: flex;
-    align-items: center;
-  }
+.active {
+  background-color: #e0e0e0;
+}
 
-  .color {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    margin-right: 10px;
-  }
+.lists .menuItem {
+  justify-content: space-between;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.color {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: grey;
+}
+
+.personal .color {
+  background-color: red;
+}
+
+.work .color {
+  background-color: blue;
+}
+
+.list1 .color {
+  background-color: green;
 }
 
 .tags {
   display: flex;
   gap: 8px;
-  flex-wrap: wrap;
 }
 
 .tag {
-  padding: 5px 10px;
-  border-radius: 8px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  background-color: lightgray;
   font-size: 12px;
+}
 
-  &.tag1 {
-    background-color: #b6f0ff;
-  }
+.tag1 {
+  background-color: #ffcccb;
+}
 
-  &.tag2 {
-    background-color: #ffb6c1;
-  }
+.tag2 {
+  background-color: #add8e6;
+}
 
-  &.addTag {
-    background-color: #e0e0e0;
-  }
+.addTag {
+  background-color: #e0e0e0;
 }
 
 .bottom {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-
-  div {
-    margin-bottom: 10px;
-    cursor: pointer;
-  }
+  width: 100%;
+  padding-top: 16px;
+  border-top: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
 }

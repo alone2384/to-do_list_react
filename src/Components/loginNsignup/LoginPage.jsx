@@ -27,6 +27,8 @@ function LoginPage() {
 
     if (user) {
       toast.success("✅ Login Successful!", { position: "bottom-right" });
+      
+      
     } else {
       toast.error("❌ Invalid ID or Password", { position: "bottom-right" });
     }
