@@ -21,6 +21,8 @@ body::-webkit-scrollbar {
   height: 100vh;
   display: flex;
   padding: 0.2px;
+  position: relative;
+  z-index: 99;
 }
 
 
@@ -35,8 +37,6 @@ body::-webkit-scrollbar {
   align-items: center;
   justify-content: center;
   position: fixed;
-  top: 0;
-  left: 0;
   z-index: 9;
   transition: left 0.3s ease;
 
