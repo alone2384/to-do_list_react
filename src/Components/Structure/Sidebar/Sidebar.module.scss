@@ -12,6 +12,8 @@
   --font-main: 'Segoe UI', 'Inter', sans-serif;
 }
 
+
+
 .sidebar {
   width: 270px;
   height: 100vh;
@@ -22,6 +24,20 @@
   padding: 1.2rem;
   font-family: var(--font-main);
   font-size: 1rem;
+  overflow: scroll;
+}
+
+.sidebar::-webkit-scrollbar {
+  display: none;
+}
+
+.btmArea {
+  height: 99%;
+  overflow: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .userProfile {
