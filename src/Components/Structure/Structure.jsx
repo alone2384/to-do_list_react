@@ -3,6 +3,7 @@ import styles from "./Structure.module.scss";
 import { HiOutlineMenu } from "react-icons/hi";
 
 import Sidebar from "./Sidebar/Sidebar";
+import MainPage from "./Pages/AMainPage"; // or MainPage if you renamed
 
 const Structure = () => {
   const [toggling, setToggling] = useState(0);
@@ -47,8 +48,7 @@ const Structure = () => {
           <HiOutlineMenu />
         </button>
       </div>
-      <div className={styles.structureMid}>Mid</div>
-      <div className={styles.structureRight}>Right</div>
+      <div className={styles.structureMid}><MainPage/></div>
     </div>
   );
 };

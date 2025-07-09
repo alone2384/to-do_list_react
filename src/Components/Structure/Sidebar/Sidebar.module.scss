@@ -44,6 +44,8 @@
   display: flex;
   align-items: center;
   margin-bottom: 0.8rem;
+  position: absolute;
+  top: 4%;  
 
   .pfp {
     width: 40px;
@@ -149,4 +151,9 @@
   background-color: var(--hover-bg);
   margin: 1rem 0;
   opacity: 0.6;
+}
+
+
+a.active{
+  background-color: var(--active-bg);
 }
