@@ -4,6 +4,7 @@ import Vaul from "./signup";
 import { LuListTodo } from "react-icons/lu";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useEffect } from "react"; // already imported if not, make sure it is
 
 function LoginPage() {
   const [mailValue, setMailValue] = useState("");
@@ -14,9 +15,30 @@ function LoginPage() {
     return savedUsers ? JSON.parse(savedUsers) : [];
   });
 
-  // useEffect(() => {
-  //   localStorage.setItem("userArr", JSON.stringify(userArr));
-  // }, []);
+  useEffect(() => {
+    // localStorage.setItem("userArr", JSON.stringify(userArr));
+
+    const handleKeyCombo = (e) => {
+      if (e.ctrlKey && e.code === "Space") {
+        const onC = (e2) => {
+          if (e2.key.toLowerCase() === "c") {
+            localStorage.clear();
+            toast.info("🧹 LocalStorage cleared!", {
+              position: "bottom-right",
+            });
+            window.removeEventListener("keydown", onC); // clean up
+          }
+        };
+        window.addEventListener("keydown", onC);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyCombo);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyCombo);
+    };
+  }, []);
 
   const handleLogin = () => {
     const user = userArr.find(
@@ -27,8 +49,6 @@ function LoginPage() {
 
     if (user) {
       toast.success("✅ Login Successful!", { position: "bottom-right" });
-      
-      
     } else {
       toast.error("❌ Invalid ID or Password", { position: "bottom-right" });
     }
@@ -36,7 +56,7 @@ function LoginPage() {
 
   return (
     <>
-      <ToastContainer limit={1} />
+      <ToastContainer limit={10} />
       <main>
         <div id="left">
           <div id="top">

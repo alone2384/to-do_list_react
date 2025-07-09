@@ -11,12 +11,12 @@ import Settings from "./Settings";
 import Pri1 from "./Pri1";
 import Pri2 from "./Pri2";
 import Pri3 from "./Pri3";
-
+import styles from "./AMainPage.module.scss"
 import { Routes, Route } from "react-router-dom";
 
 const MainPage = () => {
   return (
-    <div>
+    <div className={styles.WorkingArea}>
       <Routes>
          {/* Default page */}
         <Route index element={<Home />} />
