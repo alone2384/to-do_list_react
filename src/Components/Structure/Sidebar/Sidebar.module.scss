@@ -60,6 +60,7 @@
   }
 }
 
+
 .searchBar {
   width: 100%;
   padding: 0.6rem 0.9rem;
@@ -156,4 +157,44 @@
 
 a.active{
   background-color: var(--active-bg);
+}
+
+.iconUpcoming {
+  font-size: 1.1em;
+  // color: #00bcd4;
+}
+
+.iconBacklog {
+  font-size: 1.1em;
+  // color: #ff9800;
+}
+
+.iconHome {
+  font-size: 1.1em;
+  // color: #4caf50;
+}
+
+.iconFav {
+  font-size: 1.1em;
+  // color: gold;
+}
+
+.iconSticky {
+  font-size: 1.1em;
+  // color: #673ab7;
+}
+
+.iconPomodoro {
+  font-size: 1.1em;
+  // color: #f44336;
+}
+
+.iconSettings {
+  font-size: 1.1em;
+  // color: #607d8b;
+}
+
+.iconLogout {
+  font-size: 1.1em;
+  // color: #e91e63;
 }

@@ -24,6 +24,12 @@ const Structure = () => {
     setToggling((prev) => (prev === 0 ? 1 : 0));
   };
 
+  const handleMidClick = () => {
+    if (isMobile && toggling === 0) {
+      setToggling(1); // Close sidebar
+    }
+  };
+
   const Leftstyle = {
     left: toggling === 0 ? "0" : isMobile ? "-65%" : "-17%",
     position: "absolute",
@@ -48,7 +54,13 @@ const Structure = () => {
           <HiOutlineMenu />
         </button>
       </div>
-      <div className={styles.structureMid}><MainPage/></div>
+
+      <div
+        className={styles.structureMid}
+        onClick={handleMidClick}
+      >
+        <MainPage />
+      </div>
     </div>
   );
 };

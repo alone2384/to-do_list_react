@@ -1,6 +1,14 @@
 import React from "react";
 import styles from "./Sidebar.module.scss";
-import { NavLink,Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
+
+// icons
+import { MdOutlineQueuePlayNext } from "react-icons/md";
+import { BsListStars } from "react-icons/bs";
+import { RiHome4Line } from "react-icons/ri";
+import { FaRegNoteSticky } from "react-icons/fa6";
+import { IoSettingsOutline } from "react-icons/io5";
+import { TbLogout } from "react-icons/tb";
 
 const Sidebar = () => {
   const activeLink = ({ isActive }) =>
@@ -22,28 +30,38 @@ const Sidebar = () => {
       <br />
       <hr className={styles.divider} />
 
+      {/* SEARCH BAR */}
+      <input type="text" placeholder="Search..." className={styles.searchBar} />
       <div className={styles.btmArea}>
-        {/* SEARCH BAR */}
-        <input
-          type="text"
-          placeholder="Search..."
-          className={styles.searchBar}
-        />
-
         <hr className={styles.divider} />
 
         {/* NAVIGATION */}
-        <NavLink to="/today" className={activeLink}>⛩️ Today</NavLink>
-        <NavLink to="/upcoming" className={activeLink}>📅 Upcoming</NavLink>
-        <NavLink to="/backlog" className={activeLink}>📥 Backlog</NavLink>
-        <NavLink to="/home" className={activeLink}>🏠 Home</NavLink>
+        <NavLink to="/today" className={activeLink}>
+          ⛩️ Today
+        </NavLink>
+        <NavLink to="/upcoming" className={activeLink}>
+          <MdOutlineQueuePlayNext className={styles.iconUpcoming} /> &nbsp;
+          Upcoming
+        </NavLink>
+        <NavLink to="/backlog" className={activeLink}>
+          <BsListStars className={styles.iconBacklog} /> &nbsp; Backlog
+        </NavLink>
+        <NavLink to="/home" className={activeLink}>
+          <RiHome4Line className={styles.iconHome} /> &nbsp; Home
+        </NavLink>
 
         <hr className={styles.divider} />
 
         {/* SECONDARY NAV */}
-        <NavLink to="/favcards" className={activeLink}>⭐ Fav Cards</NavLink>
-        <NavLink to="/stickywall" className={activeLink}>🧱 Stickywall</NavLink>
-        <NavLink to="/pomodoro" className={activeLink}>⏱ Pomodoro Timer</NavLink>
+        <NavLink to="/favcards" className={activeLink}>
+          <span className={styles.iconFav}>⭐</span> &nbsp; Fav Cards
+        </NavLink>
+        <NavLink to="/stickywall" className={activeLink}>
+          <FaRegNoteSticky className={styles.iconSticky} /> &nbsp; Stickywall
+        </NavLink>
+        <NavLink to="/pomodoro" className={activeLink}>
+          <span className={styles.iconPomodoro}> ⏱ </span> &nbsp; Pomodoro Timer
+        </NavLink>
 
         <hr className={styles.divider} />
 
@@ -51,23 +69,27 @@ const Sidebar = () => {
         <div className={styles.sectionTitle}>&emsp;Priority</div>
         <NavLink to="/pri1" className={styles.priorityRow}>
           <span className={`${styles.dot} ${styles.p1}`}></span>
-          <span className={styles.priorityLabel}>P1 - Urgent</span>
+          <span className={styles.priorityLabel}>Priority-1 </span>
           <span className={styles.count}>3</span>
         </NavLink>
         <NavLink to="/pri2" className={styles.priorityRow}>
           <span className={`${styles.dot} ${styles.p2}`}></span>
-          <span className={styles.priorityLabel}>P2 - Medium</span>
+          <span className={styles.priorityLabel}>Priority-2 </span>
           <span className={styles.count}>6</span>
         </NavLink>
         <NavLink to="/pri3" className={styles.priorityRow}>
           <span className={`${styles.dot} ${styles.p3}`}></span>
-          <span className={styles.priorityLabel}>P3 - Low</span>
+          <span className={styles.priorityLabel}>Priority-3 </span>
           <span className={styles.count}>2</span>
         </NavLink>
 
         {/* SETTINGS + SIGN OUT */}
-        <NavLink to="/settings" className={activeLink}>⚙️ Settings</NavLink>
-        <NavLink to="/login" className={activeLink}>🚪 Sign Out</NavLink>
+        <NavLink to="/settings" className={activeLink}>
+          <IoSettingsOutline className={styles.iconSettings} /> &nbsp; Settings
+        </NavLink>
+        <NavLink to="/login" className={activeLink}>
+          <TbLogout className={styles.iconLogout} /> &nbsp; Log Out
+        </NavLink>
       </div>
     </div>
   );

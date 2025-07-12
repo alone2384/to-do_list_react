@@ -6,7 +6,7 @@ import Structure from "./Components/Structure/Structure";
 const App = () => {
   return (
     <>
-      <LoginPage/>      
+      {/* <LoginPage/>       */}
       <Structure/>
      
       
