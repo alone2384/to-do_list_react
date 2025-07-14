@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import styles from "./Structure.module.scss";
 import { HiOutlineMenu } from "react-icons/hi";
 
+
 import Sidebar from "./Sidebar/Sidebar";
 import MainPage from "./Pages/AMainPage"; // or MainPage if you renamed
+import AddTaskBtn from "./AddTaskBtn";
 
 const Structure = () => {
   const [toggling, setToggling] = useState(0);
@@ -55,10 +57,8 @@ const Structure = () => {
         </button>
       </div>
 
-      <div
-        className={styles.structureMid}
-        onClick={handleMidClick}
-      >
+      <div className={styles.structureMid} onClick={handleMidClick}>
+        <AddTaskBtn/>
         <MainPage />
       </div>
     </div>
