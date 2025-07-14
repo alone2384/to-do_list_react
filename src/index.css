@@ -38,3 +38,6 @@ body {
 
   --menuBtn: white;
 }
+body{
+  background-color:var(--bg-dark) ;
+}
