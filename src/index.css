@@ -13,13 +13,13 @@ body {
   --text-muted: #666666;
   --hover-bg: #f0f0f0;
   --active-bg: #ff5722;
-
+  
   --p1-color: #ff4d4d;
   --p2-color: #ffa64d;
   --p3-color: #4da6ff;
-
+  
   --font-main: "Segoe UI", "Inter", sans-serif;
-
+  
   --menuBtn: black;
 }
 /* darkmode */
@@ -29,15 +29,16 @@ body {
   --text-muted: #b3b3b3;
   --hover-bg: #333333;
   --active-bg: #ff5722;
-
+  
   --p1-color: #ff4d4d;
   --p2-color: #ffa64d;
   --p3-color: #4da6ff;
-
+  
   --font-main: "Segoe UI", "Inter", sans-serif;
 
   --menuBtn: white;
 }
+
 body{
   background-color:var(--bg-dark) ;
 }

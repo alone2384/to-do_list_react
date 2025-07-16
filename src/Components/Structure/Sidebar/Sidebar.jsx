@@ -3,6 +3,7 @@ import styles from "./Sidebar.module.scss";
 import { NavLink, Link } from "react-router-dom";
 
 // icons
+import { FaToriiGate } from "react-icons/fa";
 import { MdOutlineQueuePlayNext } from "react-icons/md";
 import { BsListStars } from "react-icons/bs";
 import { RiHome4Line } from "react-icons/ri";
@@ -37,7 +38,7 @@ const Sidebar = () => {
 
         {/* NAVIGATION */}
         <NavLink to="/today" className={activeLink}>
-          ⛩️ Today
+          <FaToriiGate /> &nbsp; Today
         </NavLink>
         <NavLink to="/upcoming" className={activeLink}>
           <MdOutlineQueuePlayNext className={styles.iconUpcoming} /> &nbsp;
