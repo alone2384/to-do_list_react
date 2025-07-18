@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./AddTaskBtn.module.scss";
 import { nanoid } from "nanoid";
 
@@ -12,7 +12,6 @@ const defaultForm = {
 };
 
 const AddTaskBtn = () => {
-  const [todos, setTodos] = useState([]);
   const [formData, setFormData] = useState(defaultForm);
   const [showDateOptions, setShowDateOptions] = useState(false);
   const [showPriorityOptions, setShowPriorityOptions] = useState(false);
@@ -64,6 +63,19 @@ const AddTaskBtn = () => {
     setTodos((prev) => [...prev, newTask]);
     setFormData(defaultForm);
   };
+
+
+
+  const [todos, setTodos] = useState(() => {
+    const saved = localStorage.getItem("AllTasks ");
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("AllTasks ", JSON.stringify(todos));
+  }, [todos]);
+
+
 
   return (
     <>

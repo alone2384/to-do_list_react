@@ -1,6 +1,6 @@
 import React from "react";
 
-import Home from "./Home";
+import Home from "./home/Home";
 import Today from "./Today";
 import Upcoming from "./Upcoming";
 import Backlog from "./Backlog";
@@ -11,6 +11,7 @@ import Settings from "./Settings";
 import Pri1 from "./Pri1";
 import Pri2 from "./Pri2";
 import Pri3 from "./Pri3";
+
 import styles from "./AMainPage.module.scss"
 import { Routes, Route } from "react-router-dom";
 

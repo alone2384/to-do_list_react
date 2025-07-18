@@ -9,6 +9,8 @@ body {
 /* light mode  */
 :root {
   --bg-dark: #ffffff;
+  --bg-area:#ffffff;
+
   --text-light: #1a1a1a;
   --text-muted: #666666;
   --hover-bg: #f0f0f0;
@@ -25,6 +27,7 @@ body {
 /* darkmode */
 :root {
   --bg-dark: #262626;
+  --bg-area:#1e1e1e;
   --text-light: #f0f0f0;
   --text-muted: #b3b3b3;
   --hover-bg: #333333;
