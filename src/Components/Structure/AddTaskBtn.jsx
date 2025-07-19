@@ -6,7 +6,7 @@ const defaultForm = {
   title: "",
   description: "",
   priority: "",
-  status: "pending",
+  status: true,
   project: "",
   dueDate: "",
 };
