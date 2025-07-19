@@ -1,84 +1,97 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Home.module.scss";
 
+// Key used for localStorage
+const STORAGE_KEY = "AllTasks";
+
 const Home = () => {
+  // State to store tasks from localStorage
   const [saved, setSaved] = useState([]);
 
+  // Load tasks from localStorage into state
   const loadTasks = () => {
-    const data = localStorage.getItem("AllTasks ");
-    setSaved(data ? JSON.parse(data) : []);
+    const tasks = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    setSaved(tasks);
   };
 
-  // Toggle status of a task
-  const toggleStatus = (index) => {
-    const updatedTasks = [...saved];
-    updatedTasks[index].status = !updatedTasks[index].status;
+  // Function to mark a task inactive (set status = false) using task.id
+  const markTaskInactive = (taskId) => {
+    const updated = saved.map((task) =>
+      task.id === taskId ? { ...task, status: false } : task
+    );
 
-    localStorage.setItem("AllTasks ", JSON.stringify(updatedTasks));
-    setSaved(updatedTasks);
+    // Save back to localStorage and state
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+    setSaved(updated);
 
-    // Dispatch custom event to notify other components
+    // Notify other components
     window.dispatchEvent(new Event("AllTasksUpdated"));
   };
 
+  // Runs only once: load tasks + set up event listeners
   useEffect(() => {
     loadTasks();
 
-    const handleCustomUpdate = () => {
-      loadTasks();
+    const updateListener = () => loadTasks();
+
+    const storageListener = (e) => {
+      if (e.key === STORAGE_KEY) loadTasks();
     };
 
-    const handleStorageUpdate = (e) => {
-      if (e.key === "AllTasks ") {
-        loadTasks();
-      }
-    };
+    // Attach listeners
+    window.addEventListener("AllTasksUpdated", updateListener);
+    window.addEventListener("storage", storageListener);
 
-    const intervalId = setInterval(() => {
-      loadTasks();
-    }, 200);
-
-    window.addEventListener("AllTasksUpdated", handleCustomUpdate);
-    window.addEventListener("storage", handleStorageUpdate);
-
+    // Cleanup listeners on unmount
     return () => {
-      window.removeEventListener("AllTasksUpdated", handleCustomUpdate);
-      window.removeEventListener("storage", handleStorageUpdate);
-      clearInterval(intervalId);
+      window.removeEventListener("AllTasksUpdated", updateListener);
+      window.removeEventListener("storage", storageListener);
     };
   }, []);
 
-  const renderTasks = () => {
-    return saved.map((task, index) =>
-      task.status === true ? (
+
+
+
+  
+  // Render active tasks only
+  const renderTasks = () =>
+    saved
+      .filter((task) => task.status !== false) // Only show active tasks
+      .map((task) => (
         <div
-          key={index}
-          className={`${styles.card} ${styles[task.priority || "mid"]}`}
+          key={task.id}
+          className={`${styles.card} ${styles[task.priority || "priority-4"]}`}
         >
           <div className={styles.info}>
+            {/* Task Title */}
             <div className={styles.title}>{task.title}</div>
-            <div className={styles.desc}>{task.description}</div>
+
+            {/* Task Description with max 20 char preview */}
+            <div className={styles.desc}>
+              {task.description.length > 20
+                ? task.description.slice(0, 20) + "..."
+                : task.description}
+            </div>
           </div>
 
-          {/* Toggle status on click */}
+          {/* ✕ Button — mark task inactive */}
           <div
             className={styles.close}
-            onClick={() => toggleStatus(index)}
-            title="Toggle Status"
+            onClick={() => markTaskInactive(task.id)}
+            title="Mark as Inactive"
             style={{ cursor: "pointer" }}
           >
             ✕
           </div>
         </div>
-      ) : null
-    );
-  };
+      ));
 
-  //main returner
+  // Final render
   return (
-    <>
-      <div className={styles.mainArea}>{renderTasks()}</div>
-    </>
+    <div className={styles.mainArea}>
+      <h1 className={styles.Today} >Home </h1>
+      {renderTasks()}
+    </div>
   );
 };
 

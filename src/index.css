@@ -9,39 +9,47 @@ body {
 /* light mode  */
 :root {
   --bg-dark: #ffffff;
-  --bg-area:#ffffff;
+  --bg-area: #ffffff;
 
   --text-light: #1a1a1a;
   --text-muted: #666666;
   --hover-bg: #f0f0f0;
   --active-bg: #ff5722;
-  
+
   --p1-color: #ff4d4d;
   --p2-color: #ffa64d;
   --p3-color: #4da6ff;
-  
+
+  --p1-bg: rgba(255, 77, 77, 0.1); 
+  --p2-bg: rgba(255, 166, 77, 0.265); 
+  --p3-bg: rgba(77, 166, 255, 0.12); 
+
   --font-main: "Segoe UI", "Inter", sans-serif;
-  
+
   --menuBtn: black;
 }
 /* darkmode */
 :root {
   --bg-dark: #262626;
-  --bg-area:#1e1e1e;
+  --bg-area: #1e1e1e;
   --text-light: #f0f0f0;
   --text-muted: #b3b3b3;
   --hover-bg: #333333;
   --active-bg: #ff5722;
-  
+
   --p1-color: #ff4d4d;
   --p2-color: #ffa64d;
   --p3-color: #4da6ff;
-  
+
+   --p1-bg: rgba(255, 77, 77, 0.12);   /* soft glowing red */
+  --p2-bg: rgba(255, 166, 77, 0.12);  /* soft glowing orange */
+  --p3-bg: rgba(77, 166, 255, 0.12);  /* soft glowing blue */
+
   --font-main: "Segoe UI", "Inter", sans-serif;
 
   --menuBtn: white;
 }
 
-body{
-  background-color:var(--bg-dark) ;
+body {
+  background-color: var(--bg-dark);
 }

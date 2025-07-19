@@ -1,12 +1,15 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import styles from "./AddTaskBtn.module.scss";
 import { nanoid } from "nanoid";
+
+const LOCAL_STORAGE_KEY = "AllTasks";
 
 const defaultForm = {
   title: "",
   description: "",
   priority: "",
-  status: true,
+  status: null, // Optional: can stay null here
   project: "",
   dueDate: "",
 };
@@ -16,6 +19,15 @@ const AddTaskBtn = () => {
   const [showDateOptions, setShowDateOptions] = useState(false);
   const [showPriorityOptions, setShowPriorityOptions] = useState(false);
   const [btnClick, setBtnClick] = useState(false);
+
+  const [todos, setTodos] = useState(() => {
+    const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos));
+  }, [todos]);
 
   const addtask = () => {
     setBtnClick(true);
@@ -54,28 +66,25 @@ const AddTaskBtn = () => {
       return;
     }
 
+    // 🛠️ Fetch the latest from localStorage
+    const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
+    const currentTasks = stored ? JSON.parse(stored) : [];
+
     const newTask = {
       id: nanoid(),
       ...formData,
+      status: true,
       createdAt: new Date().toISOString(),
     };
 
-    setTodos((prev) => [...prev, newTask]);
+    const updatedTasks = [...currentTasks, newTask];
+
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedTasks)); // Save updated list
+    window.dispatchEvent(new Event("AllTasksUpdated")); // Sync with Home.jsx
+
     setFormData(defaultForm);
+    // setBtnClick(false);
   };
-
-
-
-  const [todos, setTodos] = useState(() => {
-    const saved = localStorage.getItem("AllTasks ");
-    return saved ? JSON.parse(saved) : [];
-  });
-
-  useEffect(() => {
-    localStorage.setItem("AllTasks ", JSON.stringify(todos));
-  }, [todos]);
-
-
 
   return (
     <>
@@ -163,6 +172,7 @@ const AddTaskBtn = () => {
             name="description"
             placeholder="Your description..."
             value={formData.description}
+            maxLength={50}
             onChange={handleChange}
           />
 
@@ -170,6 +180,7 @@ const AddTaskBtn = () => {
             <button onClick={close} type="button" className={styles.backBtn}>
               Cancel
             </button>
+
             <button type="submit" className={styles.nextBtn}>
               Add task
             </button>
@@ -179,7 +190,8 @@ const AddTaskBtn = () => {
         <button
           type="button"
           onClick={() => {
-            console.log("Current todos array:", todos);
+            const statuses = todos.map((todo) => todo.status);
+            console.log("Statuses:", statuses);
           }}
         >
           Log tasks
