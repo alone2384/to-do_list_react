@@ -89,7 +89,7 @@ const Upcoming = () => {
 
   return (
     <div className={styles.mainArea}>
-      <h1 className={styles.Today}>Upcoming Tasks</h1>
+      <h1 className={styles.Today}>Today</h1>
       {renderTasks()}
     </div>
   );

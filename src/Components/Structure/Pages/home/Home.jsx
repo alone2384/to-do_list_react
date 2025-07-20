@@ -53,7 +53,7 @@ const Home = () => {
   const renderTasks = () =>
     saved
       .filter(
-        (task) => task.status !== false && task.dueDate // ignore tasks with empty dueDate
+        (task) => task.status !== false // ignore tasks with empty dueDate
         // only today or future
       )
       .sort((a, b) => a.dueDate.localeCompare(b.dueDate)) // optional: sort by nearest date
