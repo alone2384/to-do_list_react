@@ -49,32 +49,41 @@ const Home = () => {
     };
   }, []);
 
-
-
-
-  
   // Render active tasks only
   const renderTasks = () =>
     saved
-      .filter((task) => task.status !== false) // Only show active tasks
+      .filter(
+        (task) => task.status !== false && task.dueDate // ignore tasks with empty dueDate
+        // only today or future
+      )
+      .sort((a, b) => a.dueDate.localeCompare(b.dueDate)) // optional: sort by nearest date
       .map((task) => (
         <div
           key={task.id}
           className={`${styles.card} ${styles[task.priority || "priority-4"]}`}
         >
           <div className={styles.info}>
-            {/* Task Title */}
             <div className={styles.title}>{task.title}</div>
-
-            {/* Task Description with max 20 char preview */}
             <div className={styles.desc}>
               {task.description.length > 20
                 ? task.description.slice(0, 20) + "..."
                 : task.description}
             </div>
+            <div
+              className={
+                styles[
+                  task.dueDate === new Date().toISOString().split("T")[0]
+                    ? "Todaydate"
+                    : new Date(task.dueDate) > new Date()
+                    ? "Upcomingdate"
+                    : "Backlogdate"
+                ]
+              }
+            >
+              {task.dueDate}
+            </div>
           </div>
 
-          {/* ✕ Button — mark task inactive */}
           <div
             className={styles.close}
             onClick={() => markTaskInactive(task.id)}
@@ -89,7 +98,7 @@ const Home = () => {
   // Final render
   return (
     <div className={styles.mainArea}>
-      <h1 className={styles.Today} >Home </h1>
+      <h1 className={styles.Today}>Home </h1>
       {renderTasks()}
     </div>
   );

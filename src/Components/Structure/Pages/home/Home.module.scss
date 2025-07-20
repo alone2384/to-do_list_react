@@ -49,12 +49,13 @@
     max-height: 7%;
 
   }
+
   .Today {
-  text-align: start;
-  margin-left: 5%;
-  color: white;
-  font-size: 1.5rem;
-}
+    text-align: start;
+    margin-left: 5%;
+    color: white;
+    font-size: 1.5rem;
+  }
 }
 
 // Priority styles
@@ -109,4 +110,26 @@
 
 .close:hover {
   color: #fff;
+}
+
+
+.Upcomingdate {
+  font-size: 0.9em;
+  color: rgba(223, 164, 74, 0.798);
+}
+
+.Backlogdate {
+  font-size: 0.9em;
+  color: rgb(235, 82, 82);
+}
+
+.Todaydate {
+  font-size: 0.9em;
+  color: rgb(83, 232, 60);
+}
+
+.date {
+  font-size: 0.9em;
+  color: rgb(255, 255, 255);
+
 }
