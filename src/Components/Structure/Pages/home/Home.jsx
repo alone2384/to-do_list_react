@@ -5,65 +5,81 @@ import { SiTicktick } from "react-icons/si";
 // Key used for localStorage
 const STORAGE_KEY = "AllTasks";
 
-const Home = () => {
-  // State to store tasks from localStorage
+const Pri1 = () => {
   const [saved, setSaved] = useState([]);
+  const [Taskcount, setTaskcount] = useState(0);
 
-  // Load tasks from localStorage into state
+  // Load tasks from localStorage
   const loadTasks = () => {
     const tasks = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
     setSaved(tasks);
   };
 
-  // Function to mark a task inactive (set status = false) using task.id
+  // Mark task as inactive
   const markTaskInactive = (taskId) => {
     const updated = saved.map((task) =>
       task.id === taskId ? { ...task, status: false } : task
     );
 
-    // Save back to localStorage and state
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
     setSaved(updated);
 
-    // Notify other components
     window.dispatchEvent(new Event("AllTasksUpdated"));
   };
 
-  // Runs only once: load tasks + set up event listeners
+  // Load tasks and set up listeners on mount
   useEffect(() => {
     loadTasks();
 
     const updateListener = () => loadTasks();
-
     const storageListener = (e) => {
       if (e.key === STORAGE_KEY) loadTasks();
     };
 
-    // Attach listeners
     window.addEventListener("AllTasksUpdated", updateListener);
     window.addEventListener("storage", storageListener);
 
-    // Cleanup listeners on unmount
     return () => {
       window.removeEventListener("AllTasksUpdated", updateListener);
       window.removeEventListener("storage", storageListener);
     };
   }, []);
 
-  const [Taskcount, setTaskcount] = useState(0);
+  // Update task count based on filtered priority-1 tasks
   useEffect(() => {
-    const activeTasks = saved.filter((task) => task.status !== false);
-    setTaskcount(activeTasks.length);
+    const activetask = saved.filter(
+      (task) => task.status !== false 
+    );
+    setTaskcount(activetask.length);
   }, [saved]);
 
-  // Render active tasks only
+  // Get today's date in YYYY-MM-DD
+  const today = new Date().toISOString().split("T")[0];
+
+  // Date classification logic
+  const getDateClass = (dueDate) => {
+    if (dueDate === "Today") return styles.Todaydate;
+    if (dueDate === "Next Week" || dueDate === "This Weekend")
+      return styles.Upcomingdate;
+
+    const isValidISO = /^\d{4}-\d{2}-\d{2}$/.test(dueDate);
+    if (isValidISO) {
+      if (dueDate === today) return styles.Todaydate;
+      if (dueDate > today) return styles.Upcomingdate;
+      if (dueDate < today) return styles.Backlogdate;
+    }
+
+    return styles.Upcomingdate; // default fallback
+  };
+
+  // Render only active, priority-1 tasks
   const renderTasks = () =>
     saved
       .filter(
-        (task) => task.status !== false
-        // only today or future
+        (task) =>
+          task.status !== false 
       )
-      .sort((a, b) => a.dueDate.localeCompare(b.dueDate)) // optional: sort by nearest date
+      .sort((a, b) => a.dueDate.localeCompare(b.dueDate))
       .map((task) => (
         <div
           key={task.id}
@@ -76,20 +92,7 @@ const Home = () => {
                 ? task.description.slice(0, 20) + "..."
                 : task.description}
             </div>
-            <div
-              className={
-                styles[
-                  task.dueDate === new Date().toISOString().split("T")[0]
-                    ? "Todaydate"
-                    : new Date(task.dueDate) > new Date()
-                    ? "Upcomingdate"
-                    : task.dueDate == "Next Week" ||
-                      task.dueDate == "This Weekend"
-                    ? "Upcomingdate"
-                    : "Backlogdate"
-                ]
-              }
-            >
+            <div className={getDateClass(task.dueDate)}>
               {task.dueDate}
             </div>
           </div>
@@ -105,20 +108,17 @@ const Home = () => {
         </div>
       ));
 
-  // Final render
   return (
     <div className={styles.mainArea}>
-      <h1 className={styles.Today}>Home </h1>
+      <h1 className={styles.Today}>Home</h1>
       <h5 className={styles.TaskCounter}>
-        {" "}
         <SiTicktick className={styles.tickIcn} />
         &nbsp;{Taskcount}&nbsp;tasks
       </h5>
-      <br />
       <br />
       {renderTasks()}
     </div>
   );
 };
 
-export default Home;
+export default Pri1;

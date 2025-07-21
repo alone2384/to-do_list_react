@@ -41,7 +41,7 @@ body {
   --p2-color: #ffa64d;
   --p3-color: #4da6ff;
 
-   --p1-bg: rgba(255, 77, 77, 0.12);   /* soft glowing red */
+   --p1-bg: rgba(209, 75, 75, 0.12);   /* soft glowing red */
   --p2-bg: rgba(255, 166, 77, 0.12);  /* soft glowing orange */
   --p3-bg: rgba(77, 166, 255, 0.12);  /* soft glowing blue */
 

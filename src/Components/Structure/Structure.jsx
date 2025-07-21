@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import styles from "./Structure.module.scss";
 import { HiOutlineMenu } from "react-icons/hi";
 
-
 import Sidebar from "./Sidebar/Sidebar";
 import MainPage from "./Pages/AMainPage"; // or MainPage if you renamed
 import AddTaskBtn from "./AddTaskBtn";
@@ -24,6 +23,7 @@ const Structure = () => {
 
   const toggle = () => {
     setToggling((prev) => (prev === 0 ? 1 : 0));
+    setMovemid(movemid * -1);
   };
 
   const handleMidClick = () => {
@@ -44,8 +44,20 @@ const Structure = () => {
     transition: "left 0.3s ease",
   };
 
+  const [movemid, setMovemid] = useState(-1);
+
+  const midMotionStyle = {
+    // transform: toggle === 1 ? "translate(-10%)" : "translate(0%)",\
+    transform: movemid === 1 ? "translate(-10%)" : "translate(0%)",
+  };
+
+const Logincheck = {
+  display: JSON.parse(localStorage.getItem("loginCheck") || "0") === 1 ? "flex" : "none",
+};
+
+
   return (
-    <div className={styles.mainarea}>
+    <div className={styles.mainarea} style={Logincheck}>
       <div className={styles.structureLeft} style={Leftstyle}>
         <Sidebar />
         <button
@@ -57,8 +69,12 @@ const Structure = () => {
         </button>
       </div>
 
-      <div className={styles.structureMid} onClick={handleMidClick}>
-        <AddTaskBtn/>
+      <div
+        className={styles.structureMid}
+        onClick={handleMidClick}
+        style={midMotionStyle}
+      >
+        <AddTaskBtn />
         <MainPage />
       </div>
     </div>

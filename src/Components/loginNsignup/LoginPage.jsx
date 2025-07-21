@@ -40,6 +40,14 @@ function LoginPage() {
     };
   }, []);
 
+  const [loginCheck, setLoginCheck] = useState(() => {
+    const stored = localStorage.getItem("loginCheck");
+    return stored ? JSON.parse(stored) : 0;
+  });
+  useEffect(() => {
+    localStorage.setItem("loginCheck", JSON.stringify(loginCheck));
+  }, [loginCheck]);
+
   const handleLogin = () => {
     const user = userArr.find(
       (u) =>
@@ -49,15 +57,19 @@ function LoginPage() {
 
     if (user) {
       toast.success("✅ Login Successful!", { position: "bottom-right" });
+      setLoginCheck(1);
+      window.location.reload();
     } else {
       toast.error("❌ Invalid ID or Password", { position: "bottom-right" });
     }
   };
-
+  const Afterlogin = {
+    display: loginCheck === 1 ? "none" : "flex",
+  };
   return (
     <>
       <ToastContainer limit={10} />
-      <main>
+      <main style={Afterlogin}>
         <div id="left">
           <div id="top">
             <h2>

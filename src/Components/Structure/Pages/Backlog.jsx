@@ -105,7 +105,6 @@ const Backlog = () => {
         &nbsp;{Taskcount}&nbsp;tasks
       </h5>
       <br />
-      <br />
       {renderTasks()}
     </div>
   );

@@ -186,21 +186,6 @@ const AddTaskBtn = () => {
             </button>
           </div>
         </form>
-
-
-        {/* clearing local storage  */}
-        <button
-          type="button"
-          onClick={() => {
-            const statuses = todos.map((todo) => todo.status);
-            localStorage.clear()  
-          }}
-        >
-          Clearlocal storage
-        </button>
-
-
-
       </div>
 
       <button onClick={addtask} className={styles.addTask}>

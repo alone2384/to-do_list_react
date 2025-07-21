@@ -37,6 +37,9 @@ const Sidebar = () => {
         <hr className={styles.divider} />
 
         {/* NAVIGATION */}
+        <NavLink to="/home" className={activeLink}>
+          <RiHome4Line className={styles.iconHome} /> &nbsp; Home
+        </NavLink>
         <NavLink to="/today" className={activeLink}>
           <FaToriiGate /> &nbsp; Today
         </NavLink>
@@ -46,9 +49,6 @@ const Sidebar = () => {
         </NavLink>
         <NavLink to="/backlog" className={activeLink}>
           <BsListStars className={styles.iconBacklog} /> &nbsp; Backlog
-        </NavLink>
-        <NavLink to="/home" className={activeLink}>
-          <RiHome4Line className={styles.iconHome} /> &nbsp; Home
         </NavLink>
 
         <hr className={styles.divider} />
@@ -88,7 +88,15 @@ const Sidebar = () => {
         <NavLink to="/settings" className={activeLink}>
           <IoSettingsOutline className={styles.iconSettings} /> &nbsp; Settings
         </NavLink>
-        <NavLink to="/login" className={activeLink}>
+        <NavLink
+          to="/login"
+          className={activeLink}
+          onClick={() => {
+            // localStorage.clear();
+            localStorage.setItem("loginCheck", "0"); 
+            window.location.reload();
+          }}
+        >
           <TbLogout className={styles.iconLogout} /> &nbsp; Log Out
         </NavLink>
       </div>

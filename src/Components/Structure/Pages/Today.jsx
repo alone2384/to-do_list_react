@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import styles from "./home/Home.module.scss";
 import { SiTicktick } from "react-icons/si";
 
-// Key used for localStorage
 const STORAGE_KEY = "AllTasks";
 
-const Upcoming = () => {
+const Today = () => {
   const [saved, setSaved] = useState([]);
-  const [DateToday, setDateToday] = useState();
+  const [dateToday, setDateToday] = useState("");
 
   // Load tasks from localStorage
   const loadTasks = () => {
@@ -15,20 +14,28 @@ const Upcoming = () => {
     setSaved(tasks);
   };
 
+  // Mark task inactive
   const markTaskInactive = (taskId) => {
     const updated = saved.map((task) =>
       task.id === taskId ? { ...task, status: false } : task
     );
-
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
     setSaved(updated);
-
     window.dispatchEvent(new Event("AllTasksUpdated"));
   };
 
+  // Get today's date in YYYY-MM-DD format
+  useEffect(() => {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, "0");
+    const dd = String(today.getDate()).padStart(2, "0");
+    setDateToday(`${yyyy}-${mm}-${dd}`);
+  }, []);
+
+  // Load tasks on mount and when custom event or localStorage changes
   useEffect(() => {
     loadTasks();
-
     const updateListener = () => loadTasks();
     const storageListener = (e) => {
       if (e.key === STORAGE_KEY) loadTasks();
@@ -36,41 +43,25 @@ const Upcoming = () => {
 
     window.addEventListener("AllTasksUpdated", updateListener);
     window.addEventListener("storage", storageListener);
-
     return () => {
       window.removeEventListener("AllTasksUpdated", updateListener);
       window.removeEventListener("storage", storageListener);
     };
   }, []);
 
-  useEffect(() => {
-    const today = new Date();
-    const yyyy = today.getFullYear();
-    const mm = String(today.getMonth() + 1).padStart(2, "0");
-    const dd = String(today.getDate()).padStart(2, "0");
-    const formatted = `${yyyy}-${mm}-${dd}`;
-    setDateToday(formatted);
-  }, []);
-
-  const [Taskcount, setTaskcount] = useState(0);
+  // Count today's tasks
+  const [taskCount, setTaskCount] = useState(0);
   useEffect(() => {
     const activeTasks = saved.filter(
-      (task) =>
-        task.status !== false && task.dueDate && task.dueDate == DateToday
+      (task) => task.status !== false && task.dueDate === dateToday
     );
-    setTaskcount(activeTasks.length);
-  }, [saved, DateToday]);
+    setTaskCount(activeTasks.length);
+  }, [saved, dateToday]);
 
-  // Show active tasks that are due today or in the future
+  // Render tasks due today only
   const renderTasks = () =>
     saved
-      .filter(
-        (task) =>
-          task.status !== false &&
-          task.dueDate && // ignore tasks with empty dueDate
-          task.dueDate == DateToday // only today or future
-      )
-      .sort((a, b) => a.dueDate.localeCompare(b.dueDate)) // optional: sort by nearest date
+      .filter((task) => task.status !== false && task.dueDate)
       .map((task) => (
         <div
           key={task.id}
@@ -85,7 +76,6 @@ const Upcoming = () => {
             </div>
             <div className={styles.Todaydate}>{task.dueDate}</div>
           </div>
-
           <div
             className={styles.close}
             onClick={() => markTaskInactive(task.id)}
@@ -101,15 +91,13 @@ const Upcoming = () => {
     <div className={styles.mainArea}>
       <h1 className={styles.Today}>Today</h1>
       <h5 className={styles.TaskCounter}>
-        {" "}
         <SiTicktick className={styles.tickIcn} />
-        &nbsp;{Taskcount}&nbsp;tasks
+        &nbsp;{taskCount}&nbsp;tasks
       </h5>
-      <br />
       <br />
       {renderTasks()}
     </div>
   );
 };
 
-export default Upcoming;
+export default Today;
