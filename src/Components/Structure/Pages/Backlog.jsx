@@ -7,7 +7,8 @@ const STORAGE_KEY = "AllTasks";
 
 const Backlog = () => {
   const [saved, setSaved] = useState([]);
-  const [DateToday, setDateToday] = useState();
+  const [DateToday, setDateToday] = useState("");
+  const [Taskcount, setTaskcount] = useState(0);
 
   // Load tasks from localStorage
   const loadTasks = () => {
@@ -19,13 +20,21 @@ const Backlog = () => {
     const updated = saved.map((task) =>
       task.id === taskId ? { ...task, status: false } : task
     );
-
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
     setSaved(updated);
-
     window.dispatchEvent(new Event("AllTasksUpdated"));
   };
 
+  // Get today's date in YYYY-MM-DD format
+  useEffect(() => {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, "0");
+    const dd = String(today.getDate()).padStart(2, "0");
+    setDateToday(`${yyyy}-${mm}-${dd}`);
+  }, []);
+
+  // Load tasks on mount and on event/localStorage update
   useEffect(() => {
     loadTasks();
 
@@ -43,33 +52,32 @@ const Backlog = () => {
     };
   }, []);
 
+  // Update task count
   useEffect(() => {
-    const today = new Date();
-    const yyyy = today.getFullYear();
-    const mm = String(today.getMonth() + 1).padStart(2, "0");
-    const dd = String(today.getDate()).padStart(2, "0");
-    const formatted = `${yyyy}-${mm}-${dd}`;
-    setDateToday(formatted);
-  }, []);
+    const today = new Date(DateToday);
 
-  const [Taskcount, setTaskcount] = useState(0);
-  useEffect(() => {
-    const activeTasks = saved.filter(
-      (task) =>
-        task.status !== false && task.dueDate && task.dueDate < DateToday
-    );
-    setTaskcount(activeTasks.length);
+    const overdue = saved.filter((task) => {
+      if (!task.dueDate || task.status === false) return false;
+
+      const taskDate = new Date(task.dueDate);
+      return taskDate < today;
+    });
+
+    setTaskcount(overdue.length);
   }, [saved, DateToday]);
 
-  const renderTasks = () =>
-    saved
-      .filter(
-        (task) =>
-          task.status !== false &&
-          task.dueDate && // ignore tasks with empty dueDate
-          task.dueDate < DateToday // only today or future
-      )
-      .sort((a, b) => a.dueDate.localeCompare(b.dueDate)) // optional: sort by nearest date
+  // Render overdue tasks only
+  const renderTasks = () => {
+    const today = new Date(DateToday);
+
+    return saved
+      .filter((task) => {
+        if (!task.dueDate || task.status === false) return false;
+
+        const taskDate = new Date(task.dueDate);
+        return taskDate < today;
+      })
+      .sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate)) // oldest first
       .map((task) => (
         <div
           key={task.id}
@@ -95,17 +103,21 @@ const Backlog = () => {
           </div>
         </div>
       ));
+  };
 
   return (
     <div className={styles.mainArea}>
       <h1 className={styles.Today}>Forgotten tasks</h1>
       <h5 className={styles.TaskCounter}>
-        {" "}
         <SiTicktick className={styles.tickIcn} />
         &nbsp;{Taskcount}&nbsp;tasks
       </h5>
       <br />
-      {renderTasks()}
+      {Taskcount === 0 ? (
+        <p className={styles.noTasks}>You're all caught up! 🥳</p>
+      ) : (
+        renderTasks()
+      )}
     </div>
   );
 };

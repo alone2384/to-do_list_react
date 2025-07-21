@@ -9,13 +9,14 @@ const defaultForm = {
   title: "",
   description: "",
   priority: "",
-  status: null, // Optional: can stay null here
+  status: null,
   project: "",
   dueDate: "",
 };
 
 const AddTaskBtn = () => {
   const [formData, setFormData] = useState(defaultForm);
+  const [dateLabel, setDateLabel] = useState(""); // NEW: store display label
   const [showDateOptions, setShowDateOptions] = useState(false);
   const [showPriorityOptions, setShowPriorityOptions] = useState(false);
   const [btnClick, setBtnClick] = useState(false);
@@ -29,13 +30,8 @@ const AddTaskBtn = () => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos));
   }, [todos]);
 
-  const addtask = () => {
-    setBtnClick(true);
-  };
-
-  const close = () => {
-    setBtnClick(false);
-  };
+  const addtask = () => setBtnClick(true);
+  const close = () => setBtnClick(false);
 
   const cardStyle = {
     display: btnClick ? "block" : "none",
@@ -49,8 +45,39 @@ const AddTaskBtn = () => {
     }));
   };
 
+  // ✅ Converts label to real date string
+  const getDateFromLabel = (label) => {
+    const today = new Date();
+
+    switch (label) {
+      case "Today":
+        return today.toLocaleDateString("en-CA"); // ✅ Local, correct
+
+      case "Tomorrow":
+        today.setDate(today.getDate() + 1); // ✅ Only +1
+        return today.toLocaleDateString("en-CA");
+
+      case "This Weekend": {
+        const day = today.getDay(); // 0 = Sunday
+        const daysUntilSaturday = (6 - day + 7) % 7 || 7;
+        today.setDate(today.getDate() + daysUntilSaturday);
+        return today.toLocaleDateString("en-CA");
+      }
+
+      case "Next Week":
+        today.setDate(today.getDate() + 7);
+        return today.toLocaleDateString("en-CA");
+
+      default:
+        return "";
+    }
+  };
+
+  // ✅ Save date & label
   const handleDateSelect = (label) => {
-    setFormData((prev) => ({ ...prev, dueDate: label }));
+    const actualDate = getDateFromLabel(label);
+    setFormData((prev) => ({ ...prev, dueDate: actualDate }));
+    setDateLabel(label); // show friendly label
     setShowDateOptions(false);
   };
 
@@ -61,12 +88,8 @@ const AddTaskBtn = () => {
 
   const handleAddTask = (e) => {
     e.preventDefault();
+    if (formData.title.trim() === "") return;
 
-    if (formData.title.trim() === "") {
-      return;
-    }
-
-    // 🛠️ Fetch the latest from localStorage
     const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
     const currentTasks = stored ? JSON.parse(stored) : [];
 
@@ -79,11 +102,11 @@ const AddTaskBtn = () => {
 
     const updatedTasks = [...currentTasks, newTask];
 
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedTasks)); // Save updated list
-    window.dispatchEvent(new Event("AllTasksUpdated")); // Sync with Home.jsx
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedTasks));
+    window.dispatchEvent(new Event("AllTasksUpdated"));
 
     setFormData(defaultForm);
-    // setBtnClick(false);
+    setDateLabel("");
   };
 
   return (
@@ -99,13 +122,14 @@ const AddTaskBtn = () => {
           />
 
           <div className={styles.actions}>
+            {/* Due Date Dropdown */}
             <div className={styles.dropdownWrapper}>
               <button
                 type="button"
                 className={styles.dateBtn}
                 onClick={() => setShowDateOptions(!showDateOptions)}
               >
-                {formData.dueDate || "Set Due Date"}
+                {dateLabel || "Set Due Date"}
               </button>
               {showDateOptions && (
                 <div className={styles.dropdown}>
@@ -124,6 +148,7 @@ const AddTaskBtn = () => {
               )}
             </div>
 
+            {/* Priority Dropdown */}
             <div className={styles.dropdownWrapper}>
               <button
                 type="button"

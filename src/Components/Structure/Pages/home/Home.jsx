@@ -2,32 +2,26 @@ import React, { useEffect, useState } from "react";
 import styles from "./Home.module.scss";
 import { SiTicktick } from "react-icons/si";
 
-// Key used for localStorage
 const STORAGE_KEY = "AllTasks";
 
-const Pri1 = () => {
+const Home = () => {
   const [saved, setSaved] = useState([]);
   const [Taskcount, setTaskcount] = useState(0);
 
-  // Load tasks from localStorage
   const loadTasks = () => {
     const tasks = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
     setSaved(tasks);
   };
 
-  // Mark task as inactive
   const markTaskInactive = (taskId) => {
     const updated = saved.map((task) =>
       task.id === taskId ? { ...task, status: false } : task
     );
-
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
     setSaved(updated);
-
     window.dispatchEvent(new Event("AllTasksUpdated"));
   };
 
-  // Load tasks and set up listeners on mount
   useEffect(() => {
     loadTasks();
 
@@ -45,18 +39,14 @@ const Pri1 = () => {
     };
   }, []);
 
-  // Update task count based on filtered priority-1 tasks
   useEffect(() => {
-    const activetask = saved.filter(
-      (task) => task.status !== false 
-    );
+    const activetask = saved.filter((task) => task.status !== false);
     setTaskcount(activetask.length);
   }, [saved]);
 
-  // Get today's date in YYYY-MM-DD
-  const today = new Date().toISOString().split("T")[0];
+  const today = new Date().toLocaleDateString("en-CA"); // "YYYY-MM-DD"
 
-  // Date classification logic
+
   const getDateClass = (dueDate) => {
     if (dueDate === "Today") return styles.Todaydate;
     if (dueDate === "Next Week" || dueDate === "This Weekend")
@@ -69,16 +59,12 @@ const Pri1 = () => {
       if (dueDate < today) return styles.Backlogdate;
     }
 
-    return styles.Upcomingdate; // default fallback
+    return styles.Upcomingdate;
   };
 
-  // Render only active, priority-1 tasks
   const renderTasks = () =>
     saved
-      .filter(
-        (task) =>
-          task.status !== false 
-      )
+      .filter((task) => task.status !== false)
       .sort((a, b) => a.dueDate.localeCompare(b.dueDate))
       .map((task) => (
         <div
@@ -92,11 +78,8 @@ const Pri1 = () => {
                 ? task.description.slice(0, 20) + "..."
                 : task.description}
             </div>
-            <div className={getDateClass(task.dueDate)}>
-              {task.dueDate}
-            </div>
+            <div className={getDateClass(task.dueDate)}>{task.dueDate}</div>
           </div>
-
           <div
             className={styles.close}
             onClick={() => markTaskInactive(task.id)}
@@ -116,9 +99,13 @@ const Pri1 = () => {
         &nbsp;{Taskcount}&nbsp;tasks
       </h5>
       <br />
-      {renderTasks()}
+      {Taskcount === 0 ? (
+        <p className={styles.noTasks}>No upcoming tasks 🎉</p>
+      ) : (
+        renderTasks()
+      )}
     </div>
   );
 };
 
-export default Pri1;
+export default Home;

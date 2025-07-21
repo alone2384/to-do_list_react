@@ -116,7 +116,11 @@ const Pri2 = () => {
         &nbsp;{Taskcount}&nbsp;tasks
       </h5>
       <br />
-      {renderTasks()}
+      {Taskcount === 0 ? (
+        <p className={styles.noTasks}>No upcoming tasks 🎉</p>
+      ) : (
+        renderTasks()
+      )}
     </div>
   );
 };

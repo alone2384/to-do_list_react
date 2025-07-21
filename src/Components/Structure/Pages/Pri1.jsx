@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./home/Home.module.scss";
 import { SiTicktick } from "react-icons/si";
 
-// Key used for localStorage
+// LocalStorage key
 const STORAGE_KEY = "AllTasks";
 
 const Pri1 = () => {
@@ -27,7 +27,7 @@ const Pri1 = () => {
     window.dispatchEvent(new Event("AllTasksUpdated"));
   };
 
-  // Load tasks and set up listeners on mount
+  // Setup listeners for storage updates
   useEffect(() => {
     loadTasks();
 
@@ -45,7 +45,7 @@ const Pri1 = () => {
     };
   }, []);
 
-  // Update task count based on filtered priority-1 tasks
+  // Count active priority-1 tasks
   useEffect(() => {
     const activePri1 = saved.filter(
       (task) => task.status !== false && task.priority === "priority-1"
@@ -56,7 +56,7 @@ const Pri1 = () => {
   // Get today's date in YYYY-MM-DD
   const today = new Date().toISOString().split("T")[0];
 
-  // Date classification logic
+  // Dynamic CSS class for due date
   const getDateClass = (dueDate) => {
     if (dueDate === "Today") return styles.Todaydate;
     if (dueDate === "Next Week" || dueDate === "This Weekend")
@@ -69,17 +69,17 @@ const Pri1 = () => {
       if (dueDate < today) return styles.Backlogdate;
     }
 
-    return styles.Upcomingdate; // default fallback
+    return styles.Upcomingdate; // fallback style
   };
 
-  // Render only active, priority-1 tasks
+  // Show tasks with priority-1
   const renderTasks = () =>
     saved
       .filter(
         (task) =>
           task.status !== false && task.priority === "priority-1"
       )
-      .sort((a, b) => a.dueDate.localeCompare(b.dueDate))
+      .sort((a, b) => a.dueDate.localeCompare(b.dueDate)) // sort by date
       .map((task) => (
         <div
           key={task.id}
@@ -116,7 +116,11 @@ const Pri1 = () => {
         &nbsp;{Taskcount}&nbsp;tasks
       </h5>
       <br />
-      {renderTasks()}
+      {Taskcount === 0 ? (
+        <p className={styles.noTasks}>No upcoming tasks 🎉</p>
+      ) : (
+        renderTasks()
+      )}
     </div>
   );
 };

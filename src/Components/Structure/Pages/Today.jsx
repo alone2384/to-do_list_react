@@ -8,22 +8,6 @@ const Today = () => {
   const [saved, setSaved] = useState([]);
   const [dateToday, setDateToday] = useState("");
 
-  // Load tasks from localStorage
-  const loadTasks = () => {
-    const tasks = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-    setSaved(tasks);
-  };
-
-  // Mark task inactive
-  const markTaskInactive = (taskId) => {
-    const updated = saved.map((task) =>
-      task.id === taskId ? { ...task, status: false } : task
-    );
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-    setSaved(updated);
-    window.dispatchEvent(new Event("AllTasksUpdated"));
-  };
-
   // Get today's date in YYYY-MM-DD format
   useEffect(() => {
     const today = new Date();
@@ -33,7 +17,13 @@ const Today = () => {
     setDateToday(`${yyyy}-${mm}-${dd}`);
   }, []);
 
-  // Load tasks on mount and when custom event or localStorage changes
+  // Load tasks from localStorage
+  const loadTasks = () => {
+    const tasks = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    setSaved(tasks);
+  };
+
+  // Event listeners for task updates
   useEffect(() => {
     loadTasks();
     const updateListener = () => loadTasks();
@@ -43,13 +33,24 @@ const Today = () => {
 
     window.addEventListener("AllTasksUpdated", updateListener);
     window.addEventListener("storage", storageListener);
+
     return () => {
       window.removeEventListener("AllTasksUpdated", updateListener);
       window.removeEventListener("storage", storageListener);
     };
   }, []);
 
-  // Count today's tasks
+  // Mark task as inactive
+  const markTaskInactive = (taskId) => {
+    const updated = saved.map((task) =>
+      task.id === taskId ? { ...task, status: false } : task
+    );
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+    setSaved(updated);
+    window.dispatchEvent(new Event("AllTasksUpdated"));
+  };
+
+  // Count today's active tasks
   const [taskCount, setTaskCount] = useState(0);
   useEffect(() => {
     const activeTasks = saved.filter(
@@ -58,10 +59,10 @@ const Today = () => {
     setTaskCount(activeTasks.length);
   }, [saved, dateToday]);
 
-  // Render tasks due today only
+  // Render only today's active tasks
   const renderTasks = () =>
     saved
-      .filter((task) => task.status !== false && task.dueDate)
+      .filter((task) => task.status !== false && task.dueDate === dateToday)
       .map((task) => (
         <div
           key={task.id}
@@ -95,7 +96,11 @@ const Today = () => {
         &nbsp;{taskCount}&nbsp;tasks
       </h5>
       <br />
-      {renderTasks()}
+      {taskCount === 0 ? (
+        <p className={styles.noTasks}>No upcoming tasks 🎉</p>
+      ) : (
+        renderTasks()
+      )}
     </div>
   );
 };
