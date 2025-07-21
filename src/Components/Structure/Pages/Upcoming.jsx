@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./home/Home.module.scss";
+import { SiTicktick } from "react-icons/si";
 
 // Key used for localStorage
 const STORAGE_KEY = "AllTasks";
@@ -51,6 +52,15 @@ const Upcoming = () => {
     setDateToday(formatted);
   }, []);
 
+  const [Taskcount, setTaskcount] = useState(0);
+  useEffect(() => {
+    const activeTasks = saved.filter(
+      (task) =>
+        task.status !== false && task.dueDate && task.dueDate > DateToday
+    );
+    setTaskcount(activeTasks.length);
+  }, [saved, DateToday]);
+
   // Show active tasks that are due today or in the future
   const renderTasks = () =>
     saved
@@ -90,6 +100,13 @@ const Upcoming = () => {
   return (
     <div className={styles.mainArea}>
       <h1 className={styles.Today}>Upcoming Tasks</h1>
+      <h5 className={styles.TaskCounter}>
+        {" "}
+        <SiTicktick className={styles.tickIcn} />
+        &nbsp;{Taskcount}&nbsp;tasks
+      </h5>
+      <br />
+      <br />
       {renderTasks()}
     </div>
   );

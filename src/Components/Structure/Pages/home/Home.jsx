@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Home.module.scss";
+import { SiTicktick } from "react-icons/si";
 
 // Key used for localStorage
 const STORAGE_KEY = "AllTasks";
@@ -49,11 +50,17 @@ const Home = () => {
     };
   }, []);
 
+  const [Taskcount, setTaskcount] = useState(0);
+  useEffect(() => {
+    const activeTasks = saved.filter((task) => task.status !== false);
+    setTaskcount(activeTasks.length);
+  }, [saved]);
+
   // Render active tasks only
   const renderTasks = () =>
     saved
       .filter(
-        (task) => task.status !== false // ignore tasks with empty dueDate
+        (task) => task.status !== false
         // only today or future
       )
       .sort((a, b) => a.dueDate.localeCompare(b.dueDate)) // optional: sort by nearest date
@@ -75,6 +82,9 @@ const Home = () => {
                   task.dueDate === new Date().toISOString().split("T")[0]
                     ? "Todaydate"
                     : new Date(task.dueDate) > new Date()
+                    ? "Upcomingdate"
+                    : task.dueDate == "Next Week" ||
+                      task.dueDate == "This Weekend"
                     ? "Upcomingdate"
                     : "Backlogdate"
                 ]
@@ -99,6 +109,13 @@ const Home = () => {
   return (
     <div className={styles.mainArea}>
       <h1 className={styles.Today}>Home </h1>
+      <h5 className={styles.TaskCounter}>
+        {" "}
+        <SiTicktick className={styles.tickIcn} />
+        &nbsp;{Taskcount}&nbsp;tasks
+      </h5>
+      <br />
+      <br />
       {renderTasks()}
     </div>
   );

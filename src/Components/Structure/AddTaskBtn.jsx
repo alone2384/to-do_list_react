@@ -49,37 +49,8 @@ const AddTaskBtn = () => {
     }));
   };
 
-  //  Convert label to actual date string
-  const getActualDate = (label) => {
-    const today = new Date();
-    switch (label) {
-      case "Today":
-        return today.toISOString().split("T")[0];
-      case "Tomorrow": {
-        const tmr = new Date(today);
-        tmr.setDate(today.getDate() + 1);
-        return tmr.toISOString().split("T")[0];
-      }
-      case "This Weekend": {
-        const weekend = new Date(today);
-        const day = weekend.getDay();
-        const daysUntilSaturday = 6 - day;
-        weekend.setDate(today.getDate() + daysUntilSaturday);
-        return weekend.toISOString().split("T")[0];
-      }
-      case "Next Week": {
-        const nextWeek = new Date(today);
-        nextWeek.setDate(today.getDate() + 7);
-        return nextWeek.toISOString().split("T")[0];
-      }
-      default:
-        return "";
-    }
-  };
-
   const handleDateSelect = (label) => {
-    const date = getActualDate(label);
-    setFormData((prev) => ({ ...prev, dueDate: date }));
+    setFormData((prev) => ({ ...prev, dueDate: label }));
     setShowDateOptions(false);
   };
 
@@ -139,9 +110,15 @@ const AddTaskBtn = () => {
               {showDateOptions && (
                 <div className={styles.dropdown}>
                   <div onClick={() => handleDateSelect("Today")}>Today</div>
-                  <div onClick={() => handleDateSelect("Tomorrow")}>Tomorrow</div>
-                  <div onClick={() => handleDateSelect("This Weekend")}>This Weekend</div>
-                  <div onClick={() => handleDateSelect("Next Week")}>Next Week</div>
+                  <div onClick={() => handleDateSelect("Tomorrow")}>
+                    Tomorrow
+                  </div>
+                  <div onClick={() => handleDateSelect("This Weekend")}>
+                    This Weekend
+                  </div>
+                  <div onClick={() => handleDateSelect("Next Week")}>
+                    Next Week
+                  </div>
                   <div onClick={() => handleDateSelect("")}>No Due Date</div>
                 </div>
               )}
@@ -157,10 +134,18 @@ const AddTaskBtn = () => {
               </button>
               {showPriorityOptions && (
                 <div className={styles.dropdown}>
-                  <div onClick={() => handlePrioritySelect("priority-1")}>Priority-1</div>
-                  <div onClick={() => handlePrioritySelect("priority-2")}>Priority-2</div>
-                  <div onClick={() => handlePrioritySelect("priority-3")}>Priority-3</div>
-                  <div onClick={() => handlePrioritySelect("")}>No Priority</div>
+                  <div onClick={() => handlePrioritySelect("priority-1")}>
+                    Priority-1
+                  </div>
+                  <div onClick={() => handlePrioritySelect("priority-2")}>
+                    Priority-2
+                  </div>
+                  <div onClick={() => handlePrioritySelect("priority-3")}>
+                    Priority-3
+                  </div>
+                  <div onClick={() => handlePrioritySelect("")}>
+                    No Priority
+                  </div>
                 </div>
               )}
             </div>
@@ -202,15 +187,20 @@ const AddTaskBtn = () => {
           </div>
         </form>
 
+
+        {/* clearing local storage  */}
         <button
           type="button"
           onClick={() => {
             const statuses = todos.map((todo) => todo.status);
-            console.log("Statuses:", statuses);
+            localStorage.clear()  
           }}
         >
-          Log tasks
+          Clearlocal storage
         </button>
+
+
+
       </div>
 
       <button onClick={addtask} className={styles.addTask}>
