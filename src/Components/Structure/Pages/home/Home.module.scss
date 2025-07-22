@@ -12,7 +12,7 @@
 .card {
   min-width: 60%;
   max-width: 60%;
-  max-height: 8%;
+  // max-height: 10%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -22,7 +22,7 @@
   color: var(--text-light);
   transition: background-color 0.3s ease;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  background-color: var(--bg-area);
+  // background-color: var(--bg-area);
   border: 1px solid var(--hover-bg);
 
 
@@ -32,7 +32,7 @@
 .Today {
   text-align: start;
   margin-left: 20%;
-  color: white;
+  color:var(--text-light);
   font-size: 1.7rem;
   font-weight: 600;
   margin-top: 3%;
@@ -41,7 +41,7 @@
 .TaskCounter {
   text-align: start;
   margin-left: 20%;
-  color: white;
+  color:var(--text-light);
   font-size: 1rem;
   font-weight: 200;
   display: flex;
@@ -52,7 +52,7 @@
 
 
 .tickIcn {
-  color: white;
+  color:var(--text-light);
   font-size: .8rem;
   font-weight: 200;
 

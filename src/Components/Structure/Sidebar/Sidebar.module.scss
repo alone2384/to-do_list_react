@@ -14,6 +14,8 @@
   overflow: scroll;
 }
 
+
+
 .sidebar::-webkit-scrollbar {
   display: none;
 }
@@ -141,6 +143,13 @@
   opacity: 0.6;
 }
 
+
+
+.logAndSettings{
+  align-self: flex-end;
+  // position: absolute;
+  // bottom: 2%;
+}
 
 a.active{
   background-color: var(--active-bg) !important;

@@ -24,15 +24,15 @@ body {
 }
 
 .card {
-  width: 50vw;
-  margin: auto;
+  width: 48vw;
   background: #fff;
   padding: 1.5rem;
   border-radius: 0.75rem;
   box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.05);
   position: absolute;
+  margin-left: 14%;
   border: 0.125rem solid #262626;
-  
+
 }
 
 .form {
@@ -192,6 +192,9 @@ input[type="text"] {
     width: 80vw;
     max-height: 80%;
     padding: 1.2rem;
+    margin-left: 0%;
+
+
   }
 
   .addTask {
@@ -230,6 +233,8 @@ input[type="text"] {
     width: 80vw;
     max-height: 80%;
     padding: 0.8rem;
+    margin-left: 0%;
+
   }
 
   .addTask {

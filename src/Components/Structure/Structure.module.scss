@@ -8,7 +8,7 @@ html,
 body {
   height: 100%;
   width: 100%;
-  color: white;
+  
 }
 
 body::-webkit-scrollbar {
@@ -22,7 +22,8 @@ body::-webkit-scrollbar {
   position: relative;
   z-index: 99;
   overflow: hidden;
-  background-color: #1e1e1e;
+  background-color: var(--bg-dark);
+
 
 }
 
