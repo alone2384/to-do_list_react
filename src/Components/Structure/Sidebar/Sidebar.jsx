@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import styles from "./Sidebar.module.scss";
 import { NavLink, Link } from "react-router-dom";
 
@@ -15,18 +15,49 @@ const Sidebar = () => {
   const activeLink = ({ isActive }) =>
     isActive ? `${styles.navItem} ${styles.active}` : styles.navItem;
 
+  const fileInputRef = useRef(null);
+  const [profileImage, setProfileImage] = useState(
+    localStorage.getItem("userImage") ||
+      "https://images.unsplash.com/photo-1635107510862-53886e926b74?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  );
+
+  const handleImageClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        localStorage.setItem("userImage", reader.result);
+        setProfileImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <div className={styles.sidebar}>
       {/* USER INFO */}
       <div className={styles.userProfile}>
         <img
-          src="https://images.unsplash.com/photo-1635107510862-53886e926b74?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          src={profileImage}
           alt="Profile"
           className={styles.pfp}
+          style={{ cursor: "pointer" }}
+          title="Click to change profile picture"
+        />
+        <input
+          type="file"
+          accept="image/*"
+          ref={fileInputRef}
+          onChange={handleImageChange}
+          style={{ display: "none" }}
         />
         <span className={styles.userName}>
-          {JSON.parse(localStorage.getItem("userArr") || "[]")?.at(-1)?.username ||
-            "Guest"}
+          {JSON.parse(localStorage.getItem("userArr") || "[]")?.at(-1)
+            ?.username || "Guest"}
         </span>
       </div>
 
@@ -36,6 +67,7 @@ const Sidebar = () => {
 
       {/* SEARCH BAR */}
       <input type="text" placeholder="Search..." className={styles.searchBar} />
+
       <div className={styles.btmArea}>
         <hr className={styles.divider} />
 
@@ -57,7 +89,7 @@ const Sidebar = () => {
         <hr className={styles.divider} />
 
         {/* SECONDARY NAV */}
-        {/* <NavLink to="/favcards" className={activeLink}>
+        <NavLink to="/favcards" className={activeLink}>
           <span className={styles.iconFav}>⭐</span> &nbsp; Fav Cards
         </NavLink>
         <NavLink to="/stickywall" className={activeLink}>
@@ -66,10 +98,9 @@ const Sidebar = () => {
         <NavLink to="/pomodoro" className={activeLink}>
           <span className={styles.iconPomodoro}> ⏱ </span> &nbsp; Pomodoro Timer
         </NavLink>
-        <hr className={styles.divider} /> */}
+        <hr className={styles.divider} />
 
         {/* PRIORITY LABELS */}
-
         <NavLink to="/pri1" className={styles.priorityRow}>
           <span className={`${styles.dot} ${styles.p1}`}></span>
           <span className={styles.priorityLabel}>Priority-1 </span>
@@ -85,10 +116,17 @@ const Sidebar = () => {
           <span className={styles.priorityLabel}>Priority-3 </span>
           <span className={styles.count}>2</span>
         </NavLink>
+
         <hr className={styles.divider} />
+
         {/* SETTINGS + SIGN OUT */}
         <div className={styles.logAndSettings}>
-          <NavLink to="/settings" className={activeLink}>
+          <NavLink
+            //Image Change
+            onClick={handleImageClick}
+            to="/settings"
+            className={activeLink}
+          >
             <IoSettingsOutline className={styles.iconSettings} /> &nbsp;
             Settings
           </NavLink>
