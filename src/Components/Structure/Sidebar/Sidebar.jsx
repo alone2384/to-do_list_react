@@ -21,6 +21,7 @@ const Sidebar = () => {
       "https://images.unsplash.com/photo-1635107510862-53886e926b74?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
   );
 
+  // eslint-disable-next-line no-unused-vars
   const handleImageClick = () => {
     fileInputRef.current.click();
   };
@@ -40,26 +41,28 @@ const Sidebar = () => {
   return (
     <div className={styles.sidebar}>
       {/* USER INFO */}
-      <div className={styles.userProfile}>
-        <img
-          src={profileImage}
-          alt="Profile"
-          className={styles.pfp}
-          style={{ cursor: "pointer" }}
-          title="Click to change profile picture"
-        />
-        <input
-          type="file"
-          accept="image/*"
-          ref={fileInputRef}
-          onChange={handleImageChange}
-          style={{ display: "none" }}
-        />
-        <span className={styles.userName}>
-          {JSON.parse(localStorage.getItem("userArr") || "[]")?.at(-1)
-            ?.username || "Guest"}
-        </span>
-      </div>
+      <NavLink to="/Profile">
+        <div className={styles.userProfile}>
+          <img
+            src={profileImage}
+            alt="Profile"
+            className={styles.pfp}
+            style={{ cursor: "pointer" }}
+            title="Click to change profile picture"
+          />
+          <input
+            type="file"
+            accept="image/*"
+            ref={fileInputRef}
+            onChange={handleImageChange}
+            style={{ display: "none" }}
+          />
+          <span className={styles.userName}>
+            {JSON.parse(localStorage.getItem("userArr") || "[]")?.at(-1)
+              ?.username || "Guest"}
+          </span>
+        </div>
+      </NavLink>
 
       <br />
       <br />
@@ -90,47 +93,64 @@ const Sidebar = () => {
 
         {/* SECONDARY NAV */}
         <NavLink to="/favcards" className={activeLink}>
-          <span className={styles.iconFav}>⭐</span> &nbsp; Fav Cards
+          <span className={styles.iconFav}>⭐</span> &nbsp; Not sure
         </NavLink>
         <NavLink to="/stickywall" className={activeLink}>
-          <FaRegNoteSticky className={styles.iconSticky} /> &nbsp; Stickywall
+          <FaRegNoteSticky className={styles.iconSticky} /> &nbsp; Not sure
         </NavLink>
         <NavLink to="/pomodoro" className={activeLink}>
-          <span className={styles.iconPomodoro}> ⏱ </span> &nbsp; Pomodoro Timer
+          <span className={styles.iconPomodoro}> ⏱ </span> &nbsp; Not sure
         </NavLink>
         <hr className={styles.divider} />
 
         {/* PRIORITY LABELS */}
-        <NavLink to="/pri1" className={styles.priorityRow}>
+        <NavLink
+          to="/pri1"
+          className={({ isActive }) =>
+            isActive
+              ? `${styles.priorityRow} ${styles.active}`
+              : styles.priorityRow
+          }
+        >
           <span className={`${styles.dot} ${styles.p1}`}></span>
           <span className={styles.priorityLabel}>Priority-1 </span>
-          <span className={styles.count}>3</span>
+          <span className={styles.count}>{Math.floor(Math.random() * 10)}</span>
         </NavLink>
-        <NavLink to="/pri2" className={styles.priorityRow}>
+        <NavLink
+          to="/pri2"
+          className={({ isActive }) =>
+            isActive
+              ? `${styles.priorityRow} ${styles.active}`
+              : styles.priorityRow
+          }
+        >
           <span className={`${styles.dot} ${styles.p2}`}></span>
           <span className={styles.priorityLabel}>Priority-2 </span>
-          <span className={styles.count}>6</span>
+          <span className={styles.count}>{Math.floor(Math.random() * 10)}</span>
         </NavLink>
-        <NavLink to="/pri3" className={styles.priorityRow}>
+        <NavLink
+          to="/pri3"
+          className={({ isActive }) =>
+            isActive
+              ? `${styles.priorityRow} ${styles.active}`
+              : styles.priorityRow
+          }
+        >
           <span className={`${styles.dot} ${styles.p3}`}></span>
           <span className={styles.priorityLabel}>Priority-3 </span>
-          <span className={styles.count}>2</span>
+          <span className={styles.count}>{Math.floor(Math.random() * 10)}</span>
         </NavLink>
 
         <hr className={styles.divider} />
 
         {/* SETTINGS + SIGN OUT */}
         <div className={styles.logAndSettings}>
-          <NavLink
-            //Image Change
-            onClick={handleImageClick}
-            to="/settings"
-            className={activeLink}
-          >
+          <NavLink to="/settings" className={activeLink}>
             <IoSettingsOutline className={styles.iconSettings} /> &nbsp;
             Settings
           </NavLink>
-          <NavLink
+          {/* logout */}
+          {/* <NavLink
             to="/login"
             className={activeLink}
             onClick={() => {
@@ -140,7 +160,7 @@ const Sidebar = () => {
             }}
           >
             <TbLogout className={styles.iconLogout} /> &nbsp; Log Out
-          </NavLink>
+          </NavLink> */}
         </div>
       </div>
     </div>

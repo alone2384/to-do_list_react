@@ -11,6 +11,8 @@ import Settings from "./Settings";
 import Pri1 from "./Pri1";
 import Pri2 from "./Pri2";
 import Pri3 from "./Pri3";
+import Profile from "./Profile";
+
 
 import styles from "./AMainPage.module.scss"
 import { Routes, Route } from "react-router-dom";
@@ -33,6 +35,7 @@ const MainPage = () => {
         <Route path="/Pri1" element={<Pri1 />} />
         <Route path="/Pri2" element={<Pri2 />} />
         <Route path="/Pri3" element={<Pri3 />} />
+        <Route path="/Profile" element={<Profile />} />
        
       </Routes>
     </div>

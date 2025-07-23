@@ -20,12 +20,13 @@ body {
   --p2-color: #ffa64d;
   --p3-color: #4da6ff;
 
-  --p1-bg: rgba(255, 77, 77, 0.1); 
-  --p2-bg: rgba(255, 166, 77, 0.265); 
-  --p3-bg: rgba(77, 166, 255, 0.12); 
+  --p1-bg: rgba(255, 77, 77, 0.1);
+  --p2-bg: rgba(255, 166, 77, 0.265);
+  --p3-bg: rgba(77, 166, 255, 0.12);
 
   --font-main: "Segoe UI", "Inter", sans-serif;
 
+  --taskplus: #ff5722;
   --menuBtn: black;
 }
 /* darkmode */
@@ -41,13 +42,68 @@ body {
   --p2-color: #ffa64d;
   --p3-color: #4da6ff;
 
-   --p1-bg: rgba(209, 75, 75, 0.12);   /* soft glowing red */
-  --p2-bg: rgba(255, 166, 77, 0.12);  /* soft glowing orange */
-  --p3-bg: rgba(77, 166, 255, 0.12);  /* soft glowing blue */
+  --p1-bg: rgba(209, 75, 75, 0.12); /* soft glowing red */
+  --p2-bg: rgba(255, 166, 77, 0.12); /* soft glowing orange */
+  --p3-bg: rgba(77, 166, 255, 0.12); /* soft glowing blue */
 
   --font-main: "Segoe UI", "Inter", sans-serif;
 
+  --taskplus: #ff5722;
   --menuBtn: white;
+}
+
+/* Ugly light greenn */
+:root {
+  --bg-dark: #e0f3eb;
+  --bg-area: #d1e7dc;
+  --hover-bg: #b4ddca;
+  --active-bg: #0e9c73;
+
+  --text-light: #111517;
+  --text-muted: #4b5563;
+
+  --p1-color: #dc2626;
+  --p2-color: #d97706;
+  --p3-color: #059669;
+
+  --p1-bg: #fca5a5;
+  --p2-bg: #fde68a;
+  --p3-bg: #a7f3d0;
+
+  --font-main: "Inter", "Segoe UI", sans-serif;
+
+  --taskplus: #000000;
+  --menuBtn: #0e9c73;
+}
+/* Night forest */
+:root {
+  --bg-dark: #1b1c1e;
+  --bg-area: #232427;
+  --hover-bg: #2e2f33;
+
+  /* Text */
+  --text-light: #f5f5f7;
+  --text-muted: #a0a4ab;
+
+  /* Accent Color (buttons, highlights) */
+  --active-bg: #4b5bc1;
+
+  /* Priority Colors */
+  --p1-color: #ff5c5c;
+  --p2-color: #ffc266;
+  --p3-color: #5cbfff;
+
+  /* Priority Backgrounds (soft glowing cards) */
+  --p1-bg: rgba(255, 92, 92, 0.12);
+  --p2-bg: rgba(255, 194, 102, 0.12);
+  --p3-bg: rgba(92, 191, 255, 0.12);
+
+  /* Font */
+  --font-main: "Inter", "Segoe UI", sans-serif;
+
+  /* UI Elements */
+  --taskplus: #4b5bc1;
+  --menuBtn: #ffffff;
 }
 
 body {
