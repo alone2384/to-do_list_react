@@ -92,7 +92,7 @@ const Sidebar = () => {
         <hr className={styles.divider} />
 
         {/* SECONDARY NAV */}
-        <NavLink to="/favcards" className={activeLink}>
+        {/* <NavLink to="/favcards" className={activeLink}>
           <span className={styles.iconFav}>⭐</span> &nbsp; Not sure
         </NavLink>
         <NavLink to="/stickywall" className={activeLink}>
@@ -101,7 +101,7 @@ const Sidebar = () => {
         <NavLink to="/pomodoro" className={activeLink}>
           <span className={styles.iconPomodoro}> ⏱ </span> &nbsp; Not sure
         </NavLink>
-        <hr className={styles.divider} />
+        <hr className={styles.divider} /> */}
 
         {/* PRIORITY LABELS */}
         <NavLink
